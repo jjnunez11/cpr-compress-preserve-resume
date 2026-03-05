@@ -1,8 +1,20 @@
-# Compress & Resume for Claude Code
+# CRP — Compress, Resume & Preserve for Claude Code
 
 **Persistent memory across sessions. Never lose context again.**
 
-Three Claude Code skills that save, search, and restore your conversation context — so you can pick up exactly where you left off.
+Three custom skills for Claude Code that save, search, and restore your conversation context — so you can pick up exactly where you left off.
+
+---
+
+## What Are Skills?
+
+Skills are custom slash commands for Claude Code. You type `/compress`, `/resume`, or `/preserve` in your conversation and Claude follows the instructions defined in a markdown file — no code, no plugins, just a `.md` file in the right folder.
+
+Claude Code loads skills from two locations:
+- **Global:** `~/.claude/commands/*.md` — available in every project
+- **Per-project:** `{project}/.claude/commands/*.md` — available only in that project
+
+Each `.md` file becomes a `/command` you can run. That's it. CRP is three of these files.
 
 ---
 
@@ -20,7 +32,7 @@ It gets worse:
 
 ## The Solution
 
-Three skills that work together to give Claude Code a memory:
+Three skills (custom slash commands) that work together to give Claude Code a memory:
 
 ```
 Session Work ──> /compress ──> Session Log saved ──> /compact
@@ -110,11 +122,13 @@ See [`examples/session-log-example.md`](examples/session-log-example.md) for a c
 ### 1. Get the files
 
 ```bash
-git clone https://github.com/eliaalberti/cr-compress-resume.git
-cd cr-compress-resume
+git clone https://github.com/eliaalberti/crp-compress-resume-preserve.git
+cd crp-compress-resume-preserve
 ```
 
-### 2. Copy skills to Claude Code
+### 2. Install the skills
+
+Skills are `.md` files that go in a `commands/` folder. Pick one:
 
 **Global install** (available in all projects):
 
@@ -123,7 +137,7 @@ mkdir -p ~/.claude/commands
 cp commands/*.md ~/.claude/commands/
 ```
 
-**Per-project install** (available only in one project):
+**Per-project install** (available only in that project):
 
 ```bash
 mkdir -p /path/to/your/project/.claude/commands
@@ -132,7 +146,7 @@ cp commands/*.md /path/to/your/project/.claude/commands/
 
 ### 3. Restart Claude Code
 
-Skills are loaded at startup. Restart for them to appear.
+Skills are loaded at startup. Restart for the new `/compress`, `/resume`, and `/preserve` commands to appear.
 
 ### 4. Disable auto-compacting
 
