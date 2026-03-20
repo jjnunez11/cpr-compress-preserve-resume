@@ -1,5 +1,6 @@
 ---
 description: Start session by loading context from CLAUDE.md + recent session logs
+model: opus
 allowed-tools: Read, Glob, Bash
 ---
 

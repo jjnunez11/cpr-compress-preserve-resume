@@ -1,6 +1,7 @@
 ---
 context: conversation
 description: Smart Conversation Compression with Session Logging
+model: opus
 allowed-tools: Read, Write, Bash, AskUserQuestion
 ---
 

@@ -144,7 +144,9 @@ cp commands/*.md /path/to/your/project/.claude/commands/
 
 ### 3. Restart Claude Code
 
-Skills are loaded at startup. Restart for the new `/compress`, `/resume`, and `/preserve` commands to appear.
+Skills are loaded at startup. Restart for the new `/compress`, `/preserve`, and `/resume` commands to appear.
+
+**Model:** All three skills default to **Claude Opus** (`model: opus` in frontmatter) for maximum context understanding and output quality. If you don't have Opus access, change `model: opus` to `model: sonnet` in each file's frontmatter — Sonnet 4.6 works well as a fallback.
 
 ### 4. Disable auto-compacting
 

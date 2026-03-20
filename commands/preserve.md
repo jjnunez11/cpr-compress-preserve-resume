@@ -1,6 +1,7 @@
 ---
 context: conversation
 description: Preserve session learnings to CLAUDE.md (any project)
+model: opus
 allowed-tools: Read, Edit, Write, Glob, Bash, AskUserQuestion
 ---
 
