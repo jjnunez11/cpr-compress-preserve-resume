@@ -1,4 +1,4 @@
-# CRP — Compress, Resume & Preserve for Claude Code
+# CPR — Compress, Preserve & Resume for Claude Code
 
 **Persistent memory across sessions. Never lose context again.**
 
@@ -14,7 +14,7 @@ Claude Code loads skills from two locations:
 - **Global:** `~/.claude/commands/*.md` — available in every project
 - **Per-project:** `{project}/.claude/commands/*.md` — available only in that project
 
-Each `.md` file becomes a `/command` you can run. That's it. CRP is three of these files.
+Each `.md` file becomes a `/command` you can run. That's it. CPR is three of these files.
 
 ---
 
@@ -36,19 +36,17 @@ Three skills (custom slash commands) that work together to give Claude Code a me
 
 ```
 Session Work ──> /compress ──> Session Log saved ──> /compact
-                                                        │
-New Session ──> /resume ──> Loads CLAUDE.md + recent logs
-                                │
-                                └──> Full context restored
                                         │
                /preserve ──> Updates CLAUDE.md with key learnings
+                                        │
+New Session ──> /resume ──> Loads CLAUDE.md + recent logs ──> Full context restored
 ```
 
 | Skill | What it does |
 |-------|-------------|
 | **`/compress`** | Captures the full session (decisions, solutions, files, errors) into a structured, searchable log file. Run this BEFORE `/compact`. |
-| **`/resume`** | Loads CLAUDE.md + last N session log summaries when starting a new session. Supports topic search across all past sessions. |
 | **`/preserve`** | Updates CLAUDE.md with key learnings. Keeps it lean (under 280 lines) with automatic archiving. |
+| **`/resume`** | Loads CLAUDE.md + last N session log summaries when starting a new session. Supports topic search across all past sessions. |
 
 ---
 
@@ -122,8 +120,8 @@ See [`examples/session-log-example.md`](examples/session-log-example.md) for a c
 ### 1. Get the files
 
 ```bash
-git clone https://github.com/eliaalberti/crp-compress-resume-preserve.git
-cd crp-compress-resume-preserve
+git clone https://github.com/eliaalberti/cpr-compress-preserve-resume.git
+cd cpr-compress-preserve-resume
 ```
 
 ### 2. Install the skills
