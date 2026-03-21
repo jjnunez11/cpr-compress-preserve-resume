@@ -8,6 +8,18 @@
 <h1 align="center">CPR for Claude Code</h1>
 <h3 align="center"><em>Compress, Preserve & Resume</em></h3>
 
+
+https://github.com/user-attachments/assets/3c7e0f30-dea0-4c67-a990-021db84b6d81
+
+
+https://github.com/user-attachments/assets/a31fe4b7-483e-47c1-8d78-01850482244f
+
+
+
+https://github.com/user-attachments/assets/1a3aff44-904d-463a-8f4e-6af6925e8a7a
+
+
+
 <p align="center">
   <strong>Persistent memory across sessions. Never lose context again.</strong>
 </p>
