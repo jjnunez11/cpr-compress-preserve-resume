@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License" />
 </p>
 
-<h1 align="center">CPR for Claude Code</h1>
+<h1 align="center">🩺 CPR for Claude Code</h1>
 <h3 align="center"><em>Compress, Preserve & Resume</em></h3>
 
 <p align="center">
