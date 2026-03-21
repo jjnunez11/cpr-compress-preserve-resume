@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  Three custom skills that save, search, and restore your conversation context - so you can pick up exactly where you left off.
+  Three custom skills that save, search, and restore your conversation context, so you can pick up exactly where you left off.
 </p>
 
 <p align="center">
@@ -30,14 +30,14 @@
 
 ## What Are Skills?
 
-Skills are **custom slash commands** for Claude Code. You type `/compress`, `/preserve`, or `/resume` in your conversation and Claude follows the instructions defined in a markdown file - no code, no plugins, just a `.md` file in the right folder.
+Skills are **custom slash commands** for Claude Code. You type `/preserve`, `/compress`, or `/resume` in your conversation and Claude follows the instructions defined in a markdown file. No code, no plugins, just a `.md` file in the right folder.
 
 Claude Code loads skills from two locations:
 
 | Location | Scope |
 |----------|-------|
-| `~/.claude/commands/*.md` | Global - available in every project |
-| `{project}/.claude/commands/*.md` | Per-project - available only in that project |
+| `~/.claude/commands/*.md` | Global, available in every project |
+| `{project}/.claude/commands/*.md` | Per-project, available only in that project |
 
 Each `.md` file becomes a `/command` you can run. That's it. CPR is three of these files.
 
@@ -45,17 +45,17 @@ Each `.md` file becomes a `/command` you can run. That's it. CPR is three of the
 
 ## The Problem
 
-Claude Code has **no memory between sessions**. When you close a conversation, everything is gone - decisions, solutions, context, all of it.
+Claude Code has **no memory between sessions**. When you close a conversation, everything is gone: decisions, solutions, context, all of it.
 
 It gets worse:
 
 | Problem | Impact |
 |---------|--------|
-| **Auto-compacting loses details** | Context window fills up, Claude silently compresses history - specific values, file paths, nuanced decisions get flattened |
+| **Auto-compacting loses details** | Context window fills up and Claude silently compresses history, flattening specific values, file paths, and nuanced decisions |
 | **Long sessions lose early context** | That critical decision from the first 10 minutes? Gone by hour two |
 | **New session = blank slate** | Re-explaining your project, re-discovering paths, re-making decisions every time |
 | **Past work is unsearchable** | No way to look up what you discussed three sessions ago |
-| **CLAUDE.md isn't enough** | Static file - doesn't capture the flow of decisions, errors, or solutions |
+| **CLAUDE.md isn't enough** | Static file that doesn't capture the flow of decisions, errors, or solutions |
 
 ---
 
@@ -64,8 +64,8 @@ It gets worse:
 Three skills that work together to give Claude Code a memory:
 
 ```
-Session Work ──> /compress  ──> Session Log saved
-                 /preserve  ──> CLAUDE.md updated (interchangeable order)
+Session Work ──> /preserve  ──> CLAUDE.md updated
+                 /compress  ──> Session Log saved
                       |
                  /compact   ──> Context compressed (always LAST)
                       |
@@ -78,12 +78,12 @@ New Session  ──> /resume   ──> Loads CLAUDE.md + recent logs ──> Ful
     <th>What it does</th>
   </tr>
   <tr>
-    <td><strong><code>/compress</code></strong></td>
-    <td>Captures the full session (decisions, solutions, files, errors) into a structured, searchable log file. Run this (and/or <code>/preserve</code>) BEFORE <code>/compact</code>.</td>
-  </tr>
-  <tr>
     <td><strong><code>/preserve</code></strong></td>
     <td>Updates CLAUDE.md with key learnings from the session. Keeps it lean (under 280 lines) with automatic archiving when it gets too long.</td>
+  </tr>
+  <tr>
+    <td><strong><code>/compress</code></strong></td>
+    <td>Captures the full session (decisions, solutions, files, errors) into a structured, searchable log file.</td>
   </tr>
   <tr>
     <td><strong><code>/resume</code></strong></td>
@@ -91,11 +91,13 @@ New Session  ──> /resume   ──> Loads CLAUDE.md + recent logs ──> Ful
   </tr>
 </table>
 
+Run `/preserve` and `/compress` (in any order) BEFORE `/compact`. `/compact` clears the entire context window, so always run it last.
+
 ---
 
 ## Critical: Disable Auto-Compacting
 
-Claude Code's auto-compact feature automatically compresses your conversation when the context window fills up. This is the enemy - it throws away details before you can save them.
+Claude Code's auto-compact feature automatically compresses your conversation when the context window fills up. This is the enemy, throwing away details before you can save them.
 
 **Disable it:**
 
@@ -110,9 +112,9 @@ claude config set --global autoCompact false
 
 With auto-compact off, **you** control when compression happens:
 
-1. `/compress` - save the session log (preserves everything)
-2. `/preserve` - update CLAUDE.md with key learnings (optional)
-3. `/compact` - compress the context (always last, because you already saved)
+1. `/preserve`: update CLAUDE.md with key learnings
+2. `/compress`: save the session log (preserves everything)
+3. `/compact`: compress the context (always last, because you already saved)
 
 This gives you a clean, explicit workflow instead of silent data loss.
 
@@ -136,7 +138,7 @@ Every `/compress` creates a structured markdown file in `CC-Session-Logs/` at yo
 **Outcome:** Replaced cookie-based auth with JWT + refresh tokens
 
 ## Decisions Made
-- JWT over session cookies - stateless scales better
+- JWT over session cookies, stateless scales better
 
 ## Key Learnings
 - Redis EX flag is cleaner than separate EXPIRE calls
@@ -145,7 +147,7 @@ Every `/compress` creates a structured markdown file in `CC-Session-Logs/` at yo
 - Login race condition fixed with SETNX
 
 ## Files Modified
-- `src/middleware/auth.ts` - JWT verification
+- `src/middleware/auth.ts`: JWT verification
 
 ## Pending Tasks
 - [ ] Add refresh token rotation
@@ -156,7 +158,7 @@ Every `/compress` creates a structured markdown file in `CC-Session-Logs/` at yo
 
 ---
 ## Raw Session Log
-{Full conversation archive - searchable but never loaded by /resume}
+{Full conversation archive, searchable but never loaded by /resume}
 ```
 
 </details>
@@ -200,11 +202,11 @@ cp commands/*.md /path/to/your/project/.claude/commands/
 
 ### 3. Restart Claude Code
 
-Skills are loaded at startup. Restart for the new `/compress`, `/preserve`, and `/resume` commands to appear.
+Skills are loaded at startup. Restart for the new `/preserve`, `/compress`, and `/resume` commands to appear.
 
 ### 4. Model
 
-All three skills default to **Claude Opus** (`model: opus` in frontmatter) for maximum context understanding and output quality. If you don't have Opus access, change `model: opus` to `model: sonnet` in each file's frontmatter - Sonnet 4.6 works well as a fallback.
+All three skills default to **Claude Opus** (`model: opus` in frontmatter) for maximum context understanding and output quality. If you don't have Opus access, change `model: opus` to `model: sonnet` in each file's frontmatter. Sonnet 4.6 works well as a fallback.
 
 ### 5. Disable auto-compacting
 
@@ -216,7 +218,7 @@ Or via CLI:
 claude config set --global autoCompact false
 ```
 
-**This step is critical.** Without it, Claude Code will silently compress your context before you get a chance to save it with `/compress` or `/preserve`.
+**This step is critical.** Without it, Claude Code will silently compress your context before you get a chance to save it with `/preserve` or `/compress`.
 
 ### 6. Test
 
@@ -230,7 +232,20 @@ If you see the preservation question, it's working.
 
 ## Usage
 
-### End of session - save your work
+### Update CLAUDE.md: preserve key learnings
+
+```
+You: /preserve
+Claude: What should be preserved? [multi-select]
+You: 2, 6 (Key Decisions, Next Steps)
+Claude: CLAUDE.md Updated
+        Preserved:
+        - Added JWT auth decision rationale
+        - Updated next steps with token rotation
+        CLAUDE.md is now 185 lines (target: <280)
+```
+
+### End of session: save your work
 
 ```
 You: /compress
@@ -246,23 +261,10 @@ You: skip
 Claude: Suggested topic: api-auth-refactor. Accept or type your own:
 You: ok
 Claude: Session saved to CC-Session-Logs/05-03-2026-17_30-api-auth-refactor.md
-        Run /preserve to update CLAUDE.md, then /compact to compress context.
+        Run /compact to compress context.
 ```
 
-### After major decisions - update CLAUDE.md
-
-```
-You: /preserve
-Claude: What should be preserved? [multi-select]
-You: 2, 6 (Key Decisions, Next Steps)
-Claude: CLAUDE.md Updated
-        Preserved:
-        - Added JWT auth decision rationale
-        - Updated next steps with token rotation
-        CLAUDE.md is now 185 lines (target: <280)
-```
-
-### Starting a new session - restore context
+### Starting a new session: restore context
 
 ```
 You: /resume
@@ -295,8 +297,8 @@ Claude: [Shows recent sessions + RELATED SESSIONS matching "auth"]
  RELATED SESSIONS (Topic: "auth")
 ══════════════════════════════════════════════
 
-- 05-03-2026: api-auth-refactor - JWT + refresh tokens
-- 28-02-2026: oauth-google-setup - Google OAuth integration
+- 05-03-2026: api-auth-refactor, JWT + refresh tokens
+- 28-02-2026: oauth-google-setup, Google OAuth integration
 ══════════════════════════════════════════════
 ```
 
@@ -313,21 +315,21 @@ Claude: [Shows recent sessions + RELATED SESSIONS matching "auth"]
 │     └── (normal Claude Code usage)                   │
 │                                                      │
 │  3. Before ending or when context is filling up      │
-│     ├── /compress        Save session log            │
 │     ├── /preserve        Update CLAUDE.md (optional) │
+│     ├── /compress        Save session log            │
 │     └── /compact         Compress context (LAST)     │
 └──────────────────────────────────────────────────────┘
 ```
-
-**When to `/compress`:**
-- Before ending a session
-- Before context fills up (if you notice responses getting less specific)
-- After completing a significant chunk of work
 
 **When to `/preserve`:**
 - After making important architectural decisions
 - When you discover patterns you'll need in future sessions
 - When project phase/status changes
+
+**When to `/compress`:**
+- Before ending a session
+- Before context fills up (if you notice responses getting less specific)
+- After completing a significant chunk of work
 
 ---
 
@@ -381,9 +383,9 @@ Edit the "CORE Sections" list in `commands/preserve.md` to match your CLAUDE.md 
 
 | Session Logs | Behaviour |
 |-------------|-----------|
-| < 100 | Direct file listing + grep search - fast and simple |
-| >= 100 | Grep-based search for topic matching - still fast |
-| Any count | `/resume` reads summaries only, never raw logs - token-efficient at any scale |
+| < 100 | Direct file listing + grep search, fast and simple |
+| >= 100 | Grep-based search for topic matching, still fast |
+| Any count | `/resume` reads summaries only, never raw logs, token-efficient at any scale |
 
 The raw session logs can grow large (full conversation archives), but `/resume` never reads past the `## Raw Session Log` marker. Only the structured summary header is loaded.
 
@@ -394,7 +396,7 @@ The raw session logs can grow large (full conversation archives), but `/resume` 
 <details>
 <summary><strong>Do I need all three skills?</strong></summary>
 
-`/compress` + `/resume` is the minimum viable setup. `/preserve` is optional but recommended - it keeps your CLAUDE.md up to date without manual editing.
+`/compress` + `/resume` is the minimum viable setup. `/preserve` is optional but recommended. It keeps your CLAUDE.md up to date without manual editing.
 
 </details>
 
@@ -427,9 +429,9 @@ Up to you. They're useful for team knowledge sharing but can be large. Consider 
 </details>
 
 <details>
-<summary><strong>What if I forget to /compress before /compact?</strong></summary>
+<summary><strong>What if I forget to /preserve or /compress before /compact?</strong></summary>
 
-The compacted context will still work, but you'll lose the detailed session log. Always run `/compress` and/or `/preserve` before `/compact`, since `/compact` clears the entire context window.
+The compacted context will still work, but you'll lose the detailed session log and CLAUDE.md updates. Always run `/preserve` and/or `/compress` before `/compact`, since `/compact` clears the entire context window.
 
 </details>
 
@@ -450,4 +452,4 @@ Created by [Elia Alberti](https://github.com/EliaAlberti). Built with and for [C
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

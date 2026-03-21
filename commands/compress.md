@@ -9,7 +9,7 @@ allowed-tools: Read, Write, Bash, AskUserQuestion
 
 Prepares preservation notes for conversation compaction AND saves the full session to searchable logs. Run this BEFORE `/compact`.
 
-**Workflow:** `/compress` → answer questions → session saved → `/preserve` (optional) → `/compact` (always last)
+**Workflow:** `/preserve` (optional) → `/compress` → answer questions → session saved → `/compact` (always last)
 
 ## Instructions for Claude
 
@@ -22,13 +22,13 @@ Use the AskUserQuestion tool with the following multi-select question:
 **Question:** "What would you like to preserve from this conversation?"
 
 **Options (multi-select enabled):**
-1. **Key Learnings** - Technical insights, new knowledge, "aha" moments
-2. **Solutions & Fixes** - Code solutions, bug fixes, commands that worked
-3. **Decisions Made** - Choices, trade-offs, why we chose X over Y
-4. **Files Modified** - List of files created/edited with brief descriptions
-5. **Setup & Config** - Environment setup, credentials, paths, configurations
-6. **Pending Tasks** - Unfinished work, next steps, blockers
-7. **Errors & Workarounds** - Problems encountered and how they were solved
+1. **Key Learnings:** Technical insights, new knowledge, "aha" moments
+2. **Solutions & Fixes:** Code solutions, bug fixes, commands that worked
+3. **Decisions Made:** Choices, trade-offs, why we chose X over Y
+4. **Files Modified:** List of files created/edited with brief descriptions
+5. **Setup & Config:** Environment setup, credentials, paths, configurations
+6. **Pending Tasks:** Unfinished work, next steps, blockers
+7. **Errors & Workarounds:** Problems encountered and how they were solved
 
 ### Step 2: Ask for Custom Preservation (Optional)
 
@@ -78,7 +78,7 @@ Create the session log content with this structure:
 - {Solution 2}
 
 ## Files Modified
-- `{path/to/file}` - {what changed}
+- `{path/to/file}`: {what changed}
 
 ## Setup & Config
 - {Config item if selected}
@@ -90,8 +90,8 @@ Create the session log content with this structure:
 - {Error and fix if selected}
 
 ## Key Exchanges
-- {Notable exchange 1 - brief summary}
-- {Notable exchange 2 - brief summary}
+- {Notable exchange 1, brief summary}
+- {Notable exchange 2, brief summary}
 
 ## Custom Notes
 {User's custom notes from Step 2, or "None"}
@@ -162,9 +162,7 @@ Output confirmation:
 
 ---
 
-**Next steps:**
-- Run `/preserve` to update CLAUDE.md with key learnings (optional)
-- Run `/compact` to compress the conversation context (always last)
+**Next step:** Run `/compact` to compress the conversation context (always last).
 
 The session log is saved locally. Use `/resume` to load context from recent sessions.
 ```
@@ -173,13 +171,13 @@ The session log is saved locally. Use `/resume` to load context from recent sess
 
 ## Guidelines
 
-- **Be concise** - Each bullet should be actionable or informative
+- **Be concise:** Each bullet should be actionable or informative
 - **Use code blocks** for commands, paths, and code snippets
 - **Include file paths** with line numbers where relevant
-- **Preserve exact values** - Don't paraphrase credentials, IDs, or specific configs
-- **Link context** - If something depends on something else, note the relationship
-- **Extract keywords** - The "Confidence keywords" field is critical for future AI scanning
-- **Full raw log** - The Raw Session Log must contain the COMPLETE conversation for searchability
+- **Preserve exact values:** Don't paraphrase credentials, IDs, or specific configs
+- **Link context:** If something depends on something else, note the relationship
+- **Extract keywords:** The "Confidence keywords" field is critical for future AI scanning
+- **Full raw log:** The Raw Session Log must contain the COMPLETE conversation for searchability
 
 ---
 

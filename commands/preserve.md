@@ -28,12 +28,12 @@ Use AskUserQuestion with multi-select:
 **Question:** "What should be preserved from this session?"
 
 **Options:**
-1. **Phase/Status Changes** - What moved forward, what's now complete
-2. **Key Decisions** - Choices made and why (for future reference)
-3. **New Files/Structure** - What was created or changed
-4. **Patterns/Insights** - Reusable learnings, "aha" moments
-5. **Blockers/Warnings** - Issues for future sessions
-6. **Next Steps** - Clear action items
+1. **Phase/Status Changes:** What moved forward, what's now complete
+2. **Key Decisions:** Choices made and why (for future reference)
+3. **New Files/Structure:** What was created or changed
+4. **Patterns/Insights:** Reusable learnings, "aha" moments
+5. **Blockers/Warnings:** Issues for future sessions
+6. **Next Steps:** Clear action items
 
 ### Step 3: Review Current CLAUDE.md
 
@@ -202,9 +202,9 @@ These patterns are automatically identified as archivable:
 
 ## Guidelines
 
-- **Context efficiency is paramount** - Future sessions pay for every token
-- **Signal over noise** - The "why" matters more than the "what"
-- **Point, don't duplicate** - Reference files instead of copying content
-- **Respect existing format** - Match the CLAUDE.md style already in use
-- **Never archive PROTECTED or CORE** - These are essential for Claude's operation
-- **Ask before archiving non-auto content** - User decides what's truly essential
+- **Context efficiency is paramount.** Future sessions pay for every token
+- **Signal over noise.** The "why" matters more than the "what"
+- **Point, don't duplicate.** Reference files instead of copying content
+- **Respect existing format.** Match the CLAUDE.md style already in use
+- **Never archive PROTECTED or CORE.** These are essential for Claude's operation
+- **Ask before archiving non-auto content.** User decides what's truly essential
