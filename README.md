@@ -7,6 +7,7 @@
 
 <h1 align="center">🩺 CPR for Claude Code</h1>
 <h3 align="center"><em>Compress, Preserve & Resume</em></h3>
+<p align="center">Your context dies when a session ends. CPR brings it back to life.</p>
 
 <p align="center">
   <strong>Persistent memory across sessions. Never lose context again.</strong>
