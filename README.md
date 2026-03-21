@@ -8,21 +8,29 @@
 <h1 align="center">CPR for Claude Code</h1>
 <h3 align="center"><em>Compress, Preserve & Resume</em></h3>
 
-
-https://github.com/user-attachments/assets/3c7e0f30-dea0-4c67-a990-021db84b6d81
-
-
-https://github.com/user-attachments/assets/a31fe4b7-483e-47c1-8d78-01850482244f
-
-
-
-https://github.com/user-attachments/assets/1a3aff44-904d-463a-8f4e-6af6925e8a7a
-
-
-
 <p align="center">
   <strong>Persistent memory across sessions. Never lose context again.</strong>
 </p>
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <strong>/preserve</strong><br>
+      <sub>Save key learnings to CLAUDE.md</sub><br><br>
+      <video src="https://github.com/user-attachments/assets/3c7e0f30-dea0-4c67-a990-021db84b6d81" width="100%" controls></video>
+    </td>
+    <td align="center" width="33%">
+      <strong>/compress</strong><br>
+      <sub>Capture the full session to a searchable log</sub><br><br>
+      <video src="https://github.com/user-attachments/assets/a31fe4b7-483e-47c1-8d78-01850482244f" width="100%" controls></video>
+    </td>
+    <td align="center" width="33%">
+      <strong>/resume</strong><br>
+      <sub>Restore context from past sessions</sub><br><br>
+      <video src="https://github.com/user-attachments/assets/1a3aff44-904d-463a-8f4e-6af6925e8a7a" width="100%" controls></video>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   Three custom skills that save, search, and restore your conversation context, so you can pick up exactly where you left off.
@@ -104,25 +112,6 @@ New Session  ──> /resume   ──> Loads CLAUDE.md + recent logs ──> Ful
 </table>
 
 Run `/preserve` and `/compress` (in any order) BEFORE `/compact`. `/compact` clears the entire context window, so always run it last.
-
----
-
-## See It in Action
-
-### /preserve: Save What Matters to CLAUDE.md
-Update your project's persistent memory with key learnings, decisions, and status changes from the current session.
-
-https://github.com/user-attachments/assets/preserve-demo.mp4
-
-### /compress: Capture the Full Session
-Save the entire conversation into a structured, searchable log file before compacting your context.
-
-https://github.com/user-attachments/assets/compress-demo.mp4
-
-### /resume: Pick Up Where You Left Off
-Load CLAUDE.md and recent session summaries to restore full context when starting a new conversation.
-
-https://github.com/user-attachments/assets/resume-demo.mp4
 
 ---
 
