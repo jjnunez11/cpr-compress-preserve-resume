@@ -9,10 +9,10 @@ allowed-tools: Read, Glob, Bash
 Quickly get up to speed by reading CLAUDE.md AND recent session logs. Supports topic-based search for relevant past sessions.
 
 **Usage:**
-- `/resume` — Load CLAUDE.md + last 3 session summaries
-- `/resume 5` — Load CLAUDE.md + last 5 session summaries
-- `/resume auth` — Load CLAUDE.md + last 3 + search for "auth" related sessions
-- `/resume 10 migration` — Load CLAUDE.md + last 10 + search for "migration"
+- `/resume` - Load CLAUDE.md + last 3 session summaries
+- `/resume 5` - Load CLAUDE.md + last 5 session summaries
+- `/resume auth` - Load CLAUDE.md + last 3 + search for "auth" related sessions
+- `/resume 10 migration` - Load CLAUDE.md + last 10 + search for "migration"
 
 ## Instructions for Claude
 
@@ -75,7 +75,7 @@ ls -1 "{project_root}/CC-Session-Logs/"*.md 2>/dev/null | wc -l
    ```
 3. Read summaries of top 5 topic-matched results (if not already in last N)
 
-**IMPORTANT: Only read up to "## Raw Session Log"** — Do NOT read the full raw conversation to save tokens. The summary contains the "Quick Reference" keywords needed for context.
+**IMPORTANT: Only read up to "## Raw Session Log"** - Do NOT read the full raw conversation to save tokens. The summary contains the "Quick Reference" keywords needed for context.
 
 ### Step 5: Extract Key Information
 
@@ -109,7 +109,7 @@ Add matched sessions to the output (mark them as "RELATED SESSIONS").
  RESUMING: {Project Name}
 ══════════════════════════════════════════════
 
-PHASE: {Current phase} — {Status}
+PHASE: {Current phase} - {Status}
 
 CONTEXT:
 - {Key insight from CLAUDE.md}
@@ -140,17 +140,17 @@ BLOCKERS:
  PREVIOUS SESSIONS ({N-1} more)
 ══════════════════════════════════════════════
 
-- {DD-MM-YYYY}: {Topic} — {Outcome snippet}
-- {DD-MM-YYYY}: {Topic} — {Outcome snippet}
-- {DD-MM-YYYY}: {Topic} — {Outcome snippet}
+- {DD-MM-YYYY}: {Topic} - {Outcome snippet}
+- {DD-MM-YYYY}: {Topic} - {Outcome snippet}
+- {DD-MM-YYYY}: {Topic} - {Outcome snippet}
 
 {If topic search was performed:}
 ══════════════════════════════════════════════
  RELATED SESSIONS (Topic: "{keyword}")
 ══════════════════════════════════════════════
 
-- {DD-MM-YYYY}: {Topic} — {Why it matched}
-- {DD-MM-YYYY}: {Topic} — {Why it matched}
+- {DD-MM-YYYY}: {Topic} - {Why it matched}
+- {DD-MM-YYYY}: {Topic} - {Why it matched}
 
 ══════════════════════════════════════════════
  READY TO:
@@ -179,7 +179,7 @@ What would you like to do?
 **If no session logs exist (0 files or folder doesn't exist):**
 - Skip the session logs sections entirely
 - Just show CLAUDE.md context
-- Note: "No session logs yet. Run /compress before /compact to start building session history."
+- Note: "No session logs yet. Run /compress and/or /preserve before /compact to start building session history."
 
 **If fewer than N session logs exist:**
 - Read all available logs
@@ -225,5 +225,5 @@ Example: `05-03-2026-17_30-api-auth-refactor.md`
 
 - **Default N=3:** Keeps token usage low while providing recent context
 - **Max N=50:** Reasonable upper limit for summary scanning
-- **Summary-only reading:** Critical for token efficiency — never read raw logs in /resume
-- **Grep search:** Lightweight and available everywhere — no external dependencies needed
+- **Summary-only reading:** Critical for token efficiency - never read raw logs in /resume
+- **Grep search:** Lightweight and available everywhere - no external dependencies needed

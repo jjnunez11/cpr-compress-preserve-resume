@@ -11,28 +11,28 @@
 |----------|-----------|
 | JWT + refresh tokens over session cookies | Stateless auth scales better for our API-first architecture |
 | Store refresh tokens in Redis (not DB) | Fast lookup + built-in TTL expiry, DB stays clean |
-| 15min access token / 7d refresh token | Balance between security and UX — users don't re-login often |
+| 15min access token / 7d refresh token | Balance between security and UX - users don't re-login often |
 | Rate limit login to 5 attempts/min per IP | Prevent brute force without affecting normal usage |
 
 ## Key Learnings
 
-- `jsonwebtoken` library's `verify()` is synchronous and blocks the event loop for large payloads — use `verifyAsync` wrapper
+- `jsonwebtoken` library's `verify()` is synchronous and blocks the event loop for large payloads - use `verifyAsync` wrapper
 - Redis `EX` flag on `SET` is cleaner than separate `EXPIRE` calls for refresh token storage
 - Middleware order matters: rate limiter must come BEFORE auth middleware, not after
 
 ## Solutions & Fixes
 
 - **Login race condition:** Two simultaneous refresh requests could both succeed and create duplicate sessions. Fixed with Redis `SETNX` (set-if-not-exists) for refresh token rotation
-- **Token size bloat:** Initial JWT payload included full user profile (2KB). Reduced to `{id, role, org}` (120 bytes) — profile fetched on demand
+- **Token size bloat:** Initial JWT payload included full user profile (2KB). Reduced to `{id, role, org}` (120 bytes) - profile fetched on demand
 
 ## Files Modified
-- `src/middleware/auth.ts` — Replaced session lookup with JWT verification
-- `src/routes/auth/login.ts` — New JWT issuance + refresh token flow
-- `src/routes/auth/refresh.ts` — New endpoint for token refresh
-- `src/lib/redis.ts` — Added refresh token storage helpers
-- `src/middleware/rateLimit.ts` — New rate limiting middleware
-- `tests/auth.test.ts` — Updated all auth tests for JWT flow
-- `.env.example` — Added JWT_SECRET, REFRESH_TOKEN_TTL, REDIS_URL
+- `src/middleware/auth.ts` - Replaced session lookup with JWT verification
+- `src/routes/auth/login.ts` - New JWT issuance + refresh token flow
+- `src/routes/auth/refresh.ts` - New endpoint for token refresh
+- `src/lib/redis.ts` - Added refresh token storage helpers
+- `src/middleware/rateLimit.ts` - New rate limiting middleware
+- `tests/auth.test.ts` - Updated all auth tests for JWT flow
+- `.env.example` - Added JWT_SECRET, REFRESH_TOKEN_TTL, REDIS_URL
 
 ## Pending Tasks
 - [ ] Add refresh token rotation (invalidate old token on use)
@@ -44,7 +44,7 @@
 - **Redis connection drops in test:** CI Redis container wasn't ready. Fix: Added retry logic with 3s timeout in test setup
 
 ## Key Exchanges
-- Discussed whether to use asymmetric (RS256) vs symmetric (HS256) JWT signing — went with HS256 for simplicity since we're not sharing tokens across services
+- Discussed whether to use asymmetric (RS256) vs symmetric (HS256) JWT signing - went with HS256 for simplicity since we're not sharing tokens across services
 - User clarified that mobile app will also use this auth flow, so refresh tokens are essential (mobile users shouldn't re-login)
 
 ## Custom Notes
@@ -59,4 +59,4 @@ Replaced cookie-based auth with JWT + refresh tokens in my-saas-app. Core flow i
 
 ## Raw Session Log
 
-{Full conversation would appear here — all user messages and assistant responses preserved verbatim for searchability}
+{Full conversation would appear here - all user messages and assistant responses preserved verbatim for searchability}

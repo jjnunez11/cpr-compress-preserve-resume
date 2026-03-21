@@ -9,7 +9,7 @@ allowed-tools: Read, Write, Bash, AskUserQuestion
 
 Prepares preservation notes for conversation compaction AND saves the full session to searchable logs. Run this BEFORE `/compact`.
 
-**Workflow:** `/compress` → answer questions → session saved → `/compact`
+**Workflow:** `/compress` → answer questions → session saved → `/preserve` (optional) → `/compact` (always last)
 
 ## Instructions for Claude
 
@@ -78,7 +78,7 @@ Create the session log content with this structure:
 - {Solution 2}
 
 ## Files Modified
-- `{path/to/file}` — {what changed}
+- `{path/to/file}` - {what changed}
 
 ## Setup & Config
 - {Config item if selected}
@@ -162,7 +162,9 @@ Output confirmation:
 
 ---
 
-**Next step:** Run `/compact` to compress the conversation context.
+**Next steps:**
+- Run `/preserve` to update CLAUDE.md with key learnings (optional)
+- Run `/compact` to compress the conversation context (always last)
 
 The session log is saved locally. Use `/resume` to load context from recent sessions.
 ```
