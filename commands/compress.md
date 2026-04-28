@@ -2,58 +2,26 @@
 context: conversation
 description: Smart Conversation Compression with Session Logging
 model: opus
-allowed-tools: Read, Write, Bash, AskUserQuestion
+allowed-tools: Read, Write, Bash
 ---
 
 # /compress - Smart Conversation Compression
 
 Prepares preservation notes for conversation compaction AND saves the full session to searchable logs. Run this BEFORE `/compact`.
 
-**Workflow:** `/preserve` (optional) → `/compress` → answer questions → session saved → `/compact` (always last)
+**Workflow:** `/preserve` (optional) → `/compress` → session saved → `/compact` (always last)
 
 ## Instructions for Claude
 
-When the user runs `/compress`, follow these steps:
+When the user runs `/compress`, follow these steps with no interactive prompts — analyze the conversation and proceed automatically.
 
-### Step 1: Ask What to Preserve
+### Step 1: Generate Topic Name
 
-Use the AskUserQuestion tool with the following multi-select question:
+Analyze the conversation and generate a concise topic name (3-5 words, lowercase, hyphens). Use it directly without asking for confirmation.
 
-**Question:** "What would you like to preserve from this conversation?"
+### Step 2: Generate Session Log
 
-**Options (multi-select enabled):**
-1. **Key Learnings:** Technical insights, new knowledge, "aha" moments
-2. **Solutions & Fixes:** Code solutions, bug fixes, commands that worked
-3. **Decisions Made:** Choices, trade-offs, why we chose X over Y
-4. **Files Modified:** List of files created/edited with brief descriptions
-5. **Setup & Config:** Environment setup, credentials, paths, configurations
-6. **Pending Tasks:** Unfinished work, next steps, blockers
-7. **Errors & Workarounds:** Problems encountered and how they were solved
-
-### Step 2: Ask for Custom Preservation (Optional)
-
-Ask: "Anything specific you want to highlight or remember? (Type 'skip' to continue)"
-
-This allows the user to add custom notes like:
-- "Remember that the API key expires in 30 days"
-- "The client prefers option B"
-- "Need to revisit the auth flow next week"
-
-### Step 3: Suggest Topic Name
-
-Analyze the conversation and suggest a concise topic name (3-5 words, lowercase, hyphens):
-
-```
-Based on this session, I suggest the topic name: **api-auth-refactor**
-
-Accept this, or type your preferred topic name:
-```
-
-The user can:
-- Accept by typing "ok" or "yes"
-- Provide their own topic name
-
-### Step 4: Generate Session Log
+Include all relevant categories that have content. Always include Quick Reference, Quick Resume Context, and Raw Session Log. Include any of the following that apply:
 
 Create the session log content with this structure:
 
@@ -93,9 +61,6 @@ Create the session log content with this structure:
 - {Notable exchange 1, brief summary}
 - {Notable exchange 2, brief summary}
 
-## Custom Notes
-{User's custom notes from Step 2, or "None"}
-
 ---
 
 ## Quick Resume Context
@@ -113,7 +78,7 @@ Create the session log content with this structure:
 - Quick Resume Context
 - Raw Session Log
 
-### Step 5: Detect Project Root & Save
+### Step 3: Detect Project Root & Save
 
 **Generate filename:**
 ```
@@ -128,21 +93,28 @@ Example: `05-03-2026-17_30-api-auth-refactor.md`
 2. Find project root: walk up from pwd looking for CLAUDE.md or .git
 3. If found: project_root = that directory
 4. If not found: project_root = pwd
-5. Session logs path: {project_root}/CC-Session-Logs/
-6. Create folder if it doesn't exist: mkdir -p "{project_root}/CC-Session-Logs/"
+5. Session logs path: if {project_root}/.claude/ exists, use {project_root}/.claude/CC-Session-Logs/, else use {project_root}/CC-Session-Logs/
+6. Create folder if it doesn't exist
 7. Write session log there
 ```
 
 **Save the session log:**
 ```bash
+# Determine logs path
+if [ -d "{project_root}/.claude" ]; then
+  logs_path="{project_root}/.claude/CC-Session-Logs/"
+else
+  logs_path="{project_root}/CC-Session-Logs/"
+fi
+
 # Create folder if needed
-mkdir -p "{project_root}/CC-Session-Logs/"
+mkdir -p "$logs_path"
 
 # Write session log
-Write tool -> {project_root}/CC-Session-Logs/{filename}
+Write tool -> $logs_path/{filename}
 ```
 
-### Step 6: Confirm and Instruct
+### Step 4: Confirm and Instruct
 
 Output confirmation:
 

@@ -2,7 +2,7 @@
 context: conversation
 description: Preserve session learnings to CLAUDE.md (any project)
 model: opus
-allowed-tools: Read, Edit, Write, Glob, Bash, AskUserQuestion
+allowed-tools: Read, Edit, Write, Glob, Bash
 ---
 
 # /preserve - Preserve Session Knowledge to CLAUDE.md
@@ -11,6 +11,8 @@ Updates the project's CLAUDE.md with key learnings from this session, optimized 
 
 ## Instructions for Claude
 
+Proceed automatically with no interactive prompts — analyze the conversation and include all relevant categories that have content.
+
 ### Step 1: Check for CLAUDE.md
 
 Look for CLAUDE.md in the current working directory (or common variations):
@@ -18,33 +20,18 @@ Look for CLAUDE.md in the current working directory (or common variations):
 - `Claude.md`
 - `.claude/CLAUDE.md`
 
-If not found, ask:
-"No CLAUDE.md found. Would you like me to create one, or output preservation notes to conversation instead?"
+If not found, output preservation notes to the conversation instead (see Step 7).
 
-### Step 2: Ask What to Preserve
-
-Use AskUserQuestion with multi-select:
-
-**Question:** "What should be preserved from this session?"
-
-**Options:**
-1. **Phase/Status Changes:** What moved forward, what's now complete
-2. **Key Decisions:** Choices made and why (for future reference)
-3. **New Files/Structure:** What was created or changed
-4. **Patterns/Insights:** Reusable learnings, "aha" moments
-5. **Blockers/Warnings:** Issues for future sessions
-6. **Next Steps:** Clear action items
-
-### Step 3: Review Current CLAUDE.md
+### Step 2: Review Current CLAUDE.md
 
 If CLAUDE.md exists, read it to understand:
 - Current structure and format
 - What sections exist
 - What needs updating vs adding
 
-### Step 4: Generate Updates
+### Step 3: Generate Updates
 
-Based on selections, prepare updates following these rules:
+Based on the conversation, prepare updates for all relevant categories, following these rules:
 
 **HIGH SIGNAL (include):**
 - Status changes (1 line each)
@@ -64,7 +51,7 @@ Based on selections, prepare updates following these rules:
 - Point to files: "See `path/to/file.md`"
 - Target: CLAUDE.md under 280 lines
 
-### Step 5: Apply Updates
+### Step 4: Apply Updates
 
 Edit CLAUDE.md directly, then summarize:
 
@@ -78,7 +65,7 @@ Preserved:
 CLAUDE.md is now [X] lines (target: <280)
 ```
 
-### Step 6: Check Line Count & Archive Logic
+### Step 5: Check Line Count & Archive Logic
 
 After updating, count CLAUDE.md lines:
 ```bash
@@ -125,7 +112,7 @@ wc -l CLAUDE.md
    - Remove archived sections from CLAUDE.md
    - Report result
 
-### Step 7: Archive File Handling
+### Step 6: Archive File Handling
 
 **Find project root** (same logic as /compress):
 ```
@@ -150,7 +137,7 @@ Archived content from CLAUDE.md to maintain context efficiency.
 
 **If archive exists:** Append new content with date header.
 
-### Step 8: If No CLAUDE.md
+### Step 7: If No CLAUDE.md
 
 Output a structured summary to conversation (similar to /compress):
 
